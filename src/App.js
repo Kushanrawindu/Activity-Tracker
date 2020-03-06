@@ -1,6 +1,9 @@
 import React from 'react';
 import './App.css';
 import {BrowserRouter as Router,Switch,Route} from 'react-router-dom';
+import SignIn from './pages/SignIn';
+
+import {ThemeProvider} from '@material-ui/core/styles';
 
 function App() {
   return (
