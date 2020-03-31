@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {withRouter} from 'react-router-dom';
+// import { withFirebase } from '../Firebase';
 
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -13,7 +14,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 
 import useStyles from '../config/theme.signup';
-import Copyright from '../components/Copyright';
+
 
 function SignIn(props) {
 
@@ -25,10 +26,19 @@ function SignIn(props) {
 
     const handleChange = e =>{
         const {name,value} = e.target;
-        setUser({...user, [name]:value})
+        setUser({...user, [name]:value});
     }
 
-    const handleSubmit = e => {}
+    const handleSubmit = () => {
+        props.firebase.doSignInWithEmailAndPassword(user.email, user.password)
+        .then(authUser => {
+            setUser({initialUser})
+            props.history.push("/dashboard");
+        })
+        .catch(error => {
+            setUser({...user, error: error.message})
+        });
+    }
 
     const isValid = user.email === '' || user.password === '';
 
@@ -91,7 +101,7 @@ function SignIn(props) {
               </Button>
               <Grid container>
                 <Grid item xs>
-                  <PasswordForget />
+                  {/* <PasswordForget /> */}
                 </Grid>
                 <Grid item>
                   <Link to="/sign-up">
@@ -100,7 +110,7 @@ function SignIn(props) {
                 </Grid>
               </Grid>
               <Box mt={5}>
-                <Copyright />
+                {/* <Copyright /> */}
               </Box>
             </form>
           </div>
@@ -108,5 +118,6 @@ function SignIn(props) {
       </Grid>  
     );
 }
+export default SignIn;
 
-export default SignIn
+// export default withRouter(withFirebase(SignIn));
