@@ -2,6 +2,7 @@ import React from 'react';
 
 import { withFirebase } from '../components/Firebase';
 import { withRouter } from 'react-router-dom';
+import { AuthUserContext, withAuthentication } from '../components/Session';
 
 import {
   Switch,
@@ -86,4 +87,4 @@ function Dashboard(props) {
   );
 };
 
-export default withRouter(withFirebase(Dashboard));
+export default withRouter(withAuthentication(Dashboard));
