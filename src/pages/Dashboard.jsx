@@ -24,16 +24,20 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 
 import useStyles from '../config/theme.dashboard';
 import Sidebar from '../components/Sidebar';
+import Calendar from '../components/Calendar';
 // import Copyright from '../components/Copyright';
 
 function Dashboard(props) {
   let match = useRouteMatch();
 
   const classes = useStyles();
+
   const [open, setOpen] = React.useState(true);
+
   const handleDrawerOpen = () => {
     setOpen(true);
   };
+
   const handleDrawerClose = () => {
     setOpen(false);
   };
@@ -76,7 +80,7 @@ function Dashboard(props) {
             <main className={classes.content, !open ? classes.contentClosed : classes.appBarShift }>
             <div className={classes.appBarSpacer} />
             <Container maxWidth="xl" className={classes.container}>
-                Calendar
+                <Calendar />
                 <Box pt={4}>
                     {/* <Copyright /> */}
                 </Box>
