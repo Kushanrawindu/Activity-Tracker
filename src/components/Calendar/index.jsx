@@ -3,9 +3,13 @@ import { withAuthentication } from '../Session';
 import moment from 'moment';
 
 import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+import Snackbar from '@material-ui/core/Snackbar';
 
 import CalendarBody from './calendarbody';
 import CalendarHead from './calendarhead';
+
+import AddActivity from '../AddActivity/addActivity';
 
 
 function Calendar(props) {
@@ -53,6 +57,10 @@ function Calendar(props) {
 
     const firstDayOfMonth = () => moment(dateObject).startOf("month").format("d");
 
+    /*** ADDING AN ACTIVITY ***/
+    const [openSnackbar, setOpenSnackbar] = React.useState(false);
+    const [snackbarMsg, setSnackbarMsg] = React.useState(null);
+
     return (
         <Grid container spacing={3}>
             <Grid item xs={12} md={8} lg={9}>
@@ -76,6 +84,19 @@ function Calendar(props) {
                         weekdays={moment.weekdays()} 
                         // activeDays={activeDays}
                     />
+            </Grid>
+            <Grid item xs={12} md={4} lg={3}>
+                <Paper className="paper">
+                    <>
+                        <h3>Add activity on {selectedDay.day}-{selectedDay.month + 1} </h3>
+                        <AddActivity 
+                            selectedDay={selectedDay} 
+                            authUser={props.authUser}
+                            setOpenSnackbar={setOpenSnackbar}
+                            setSnackbarMsg={setSnackbarMsg}
+                        />
+                    </>
+                </Paper>
             </Grid>
         </Grid>
     )
